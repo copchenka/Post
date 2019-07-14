@@ -5,7 +5,8 @@
 
 #include "Post.h"
 
-void readTape(char *fileName) {
+tape readTape(char *fileName) {
+	tape tape;
 	tape.values = (bool*) malloc(sizeof(bool));
 	tape.length = 0;
 	tape.head = 0;
@@ -51,9 +52,10 @@ void readTape(char *fileName) {
 	if (!isHeadFound) printf("I can't find pointer.");
 
 	fclose(tapeFile);
+	return tape;
 }
 
-void readInstruction(char *filename) {
+instr* readInstruction(char *filename) {
     instr *operations = (instr *) malloc(sizeof(instr));
     FILE *instrFile = fopen(filename, "r");
     if (instrFile == NULL) printf("I can't open this file2.\n");
@@ -100,10 +102,59 @@ struct instr p;
     if (!isStopFound) printf("Instructions haven't stop-symbol.\n");
 
     fclose(instrFile);
+	return operations;
+}
+
+void run(tape taper, instr *operations, int i) {//выплнение команды под номером i
+    if (operations[i]->instruction == '1') {
+        taper.values[taper.head] = true;
+        taper.head++;
+        i = operations[i]->next;
+    }
+    if (operations[i]->instruction == '0') {
+        taper.values[taper.head] = false;
+    }
+    if (operations[i]->instruction == '>') {//выход за границы
+        taper.head++;
+    }
+    if (operations[i]->instruction == '<') {//выход за границы
+        taper.head--;
+    }
+    if (operations[i]->instruction == '?') {
+        if (taper.values[taper.head] == false) i = operations[i]->next_if_0;
+        else i = operations[i]->next_if_1;
+    }
+    if (operations[i]->instruction == '!') {
+        printtape(taper);
+        printinstruction(operations, i);
+    }
+
+}
+
+void printtape(tape result) {
+    FILE *fo;
+    fo = fopen("output.txt", "w");
+    if (fo == NULL) printf("I cant open file for writing");
+    int x = 0;
+    while (x != result.length) {
+        if (x != result.head)fprintf(fo, ".");
+        else fprintf(fo, "V");
+        x++;
+    }
+    fprintf(fo, "\n");
+    x = 0;
+    while (x != result.length) {
+        if (result.values[x] == false)fprintf(fo, "0");
+        else fprintf(fo, "1");
+        x++;
+    }
 }
 
 int main() {
-	 readTape("tape.txt");
-	eadInstruction("instructions.txt");
+  tape tape1;
+  instr *instruction;
+  tape1=readTape("tape.txt");
+  instruction= readInstruction("instr.txt");
+  printtape(tape1);
 	return 0;
 }
