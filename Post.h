@@ -1,4 +1,4 @@
-struct tape {
+typedef struct tape {
     bool *values;
     int length, head;
 } tape;
@@ -12,4 +12,8 @@ typedef struct instr {
 
 void readTape(char *fileName);
 
-void readInstruction(char *filename);
+instr* readInstruction(char *filename);
+
+void  printtape( tape result);
+
+void run(tape taper, instr *operations, int i);
