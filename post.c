@@ -104,7 +104,37 @@ struct instr p;
     fclose(instrFile);
 	return operations;
 }
+void start(tape taper, instr *operations, int i) {
+    //i=0-пошаговый
+    //>0 определенное количество шагов
+    //-1 просто выводим ответ
 
+    int x = 1;
+    if (i == 0 || i == -1) {
+        do {
+            run(taper, operations, x);
+            if (i == 0) {
+                printinstruction(operations, x);
+                printtape(taper);
+            }
+            x++;
+        } while (operations[x]->instruction != '!');
+        if (i == -1) printtape(taper);
+
+    }
+    if (i > 0) {
+        do {
+            if (operations[x]->instruction == '!') {
+                printf("the number of steps more than you can chose. ");/////////////
+                break;
+            } else {
+                run(taper, operations, x);
+                x++;
+            }
+
+        } while (x != i || operations[x]->instruction != '!');
+    }
+}
 void run(tape taper, instr *operations, int i) {//выплнение команды под номером i
     if (operations[i]->instruction == '1') {
         taper.values[taper.head] = true;
