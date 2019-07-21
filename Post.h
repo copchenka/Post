@@ -8,12 +8,14 @@ typedef struct instr {
     int next_if_0;
     int next_if_1;
     int next;
-} *instr;
+} instr;
 
-void readTape(char *fileName);
+tape readTape(char *fileName);
 
 instr* readInstruction(char *filename);
 
-void  printtape( tape result);
+void  printtape(char *file, tape result);
 
-void run(tape taper, instr *operations, int i);
+tape run(tape taper, instr *operations, int i);
+
+void start(char*output, tape taper, instr *operations, int i);
