@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     FILE *fo;//
-    fo = fopen(argv[6], "w");//стирается все что было до этого в файле
+    fo = fopen(argv[6], "w");//СЃС‚РёСЂР°РµС‚ РІСЃРµ, С‡С‚Рѕ Р±С‹Р»Рѕ РґРѕ СЌС‚РѕРіРѕ РІ С„Р°Р№Р»Рµ
     fclose(fo);
     tape tape1;
     instr *instruction;
