@@ -18,4 +18,4 @@ void  printtape(char *file, tape result);
 
 tape run(tape taper, instr *operations, int i);
 
-void start(char*output, tape taper, instr *operations, int i);
+void start(char *output, tape taper, instr *operations, int i);
