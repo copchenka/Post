@@ -16,6 +16,8 @@ instr* readInstruction(char *filename);
 
 void  printtape(char *file, tape result);
 
+void printinstruction(char *file, instr *result, int i);
+
 tape run(tape taper, instr *operations, int i);
 
 void start(char *output, tape taper, instr *operations, int i);
