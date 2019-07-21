@@ -74,7 +74,7 @@ instr* readInstruction(char *filename) {
     int index;
     bool isStopFound = false;
     int f;
-struct instr p;
+    struct instr p;
     while ((f = fscanf(instrFile, "%d. %c", &index, &p.instruction)) != EOF) {
         if (f < 2) 
 		 fprintf(stderr, "In line must be more than one element.\n");
@@ -83,13 +83,13 @@ struct instr p;
         operations = realloc(operations, (i + 1) * sizeof(instr));
         if (operations == NULL) 
 		 fprintf(stderr, "I can't allocate memory for operations.\n");
-        switch (p.instruction) {
-
+       
+	switch (p.instruction) {
             case '1':
                 if (fgetc(instrFile) != '\n') {
                     fscanf(instrFile, "%d", &p.next);
                     if (p.next <= 0) 
-			     fprintf(stderr, "All numbers of operations must be >= 0.\n");
+			fprintf(stderr, "All numbers of operations must be >= 0.\n");
                 } else p.next = i + 1;
                 break;
             case '?':
@@ -116,7 +116,7 @@ struct instr p;
                 printf("This symbol(%c, %d) can't be use in operations\n", p.instruction, index);
         }
         fscanf(instrFile, "\n");
-        operations[i] = &p;
+        operations[i] = p;
         i++;
     }
     if (!isStopFound) 
@@ -131,8 +131,8 @@ void start(char *output,tape taper, instr *operations, int i) {
     //-1 просто выводим ответ
     int d;
     int x = 1;
-    if (i == 0 || i == -1) d= 50;
-	else d=i;
+    if (i == 0 || i == -1) d = 50;
+	else d = i;
     while (x != d + 1 && operations[x].instruction != '!') {
 	    if (operations[x].instruction != '!') {
             taper = run(taper, operations, x);
@@ -169,7 +169,6 @@ tape run(tape taper, instr *operations, int i) {//выплнение коман�
                     fprintf(stderr, "I can't allocate memory.\n");
                 taper.length++;
                 taper.values[taper.length - 1] = false;
-
             }
             break;
         case '<':
@@ -212,7 +211,7 @@ tape run(tape taper, instr *operations, int i) {//выплнение коман�
 
 void printtape(char *file, tape result) {
     FILE *fo;
-    fo = fopen("output.txt", "a");
+    fo = fopen(file, "a");
     if (fo == NULL) 
 	    fprintf(stderr, "I can't open file for writing.\n");
     int x = 0;
@@ -237,7 +236,7 @@ void printtape(char *file, tape result) {
 }
 
 void printinstruction(char *file, instr *result, int i) {
-    FILE *fo;//
+    FILE *fo;
     fo = fopen(file, "a");
     if (fo == NULL)
         fprintf(stderr, "I cant open file for writing.\n");
