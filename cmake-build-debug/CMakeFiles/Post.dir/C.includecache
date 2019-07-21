@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/BOOK/CLionProjects/Post/Post.h
+
+C:/Users/BOOK/CLionProjects/Post/main.c
+stdbool.h
+-
+malloc.h
+-
+stdio.h
+-
+stdlib.h
+-
+mem.h
+-
+Post.h
+C:/Users/BOOK/CLionProjects/Post/Post.h
+
+C:/Users/BOOK/CLionProjects/Post/post.c
+stdbool.h
+-
+malloc.h
+-
+stdio.h
+-
+stdlib.h
+-
+mem.h
+-
+Post.h
+C:/Users/BOOK/CLionProjects/Post/Post.h
+
